@@ -1,103 +1,113 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+
+export default function HomePage() {
+  const [hovered, setHovered] = useState<string | null>(null)
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="relative min-h-screen bg-neutral-100">
+      {/* Top Bar */}
+      <header className="fixed top-0 w-full flex justify-between items-center px-6 py-4 bg-white shadow z-50">
+        <div className="text-l flex items-center gap-2">
+          🧠 <span>Yang (Oceana) Di</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <nav className="flex gap-6 text-md ">
+          <Link href="#home">Home</Link>
+          <Link href="#cv">CV</Link>
+          <Link href="#publication">Publication</Link>
+          <Link href="#profile">Profile</Link>
+        </nav>
+      </header>
+
+      {/* Brain Section */}
+      <section id="home"  className="h-screen w-screen flex justify-center items-center bg-white">
+        <div className="relative w-[600px] h-[600px]">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/image/brain.jpg"
+            alt="Brain Graphic"
+            fill
+            className="object-contain"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+
+          {/* Clickable Areas */}
+          <Link href="#cv">
+            <motion.div
+              onHoverStart={() => setHovered('cv')}
+              onHoverEnd={() => setHovered(null)}
+              className="absolute left-[52%] top-[18%] w-[120px] h-[100px] cursor-pointer"
+              animate={{ scale: hovered === 'cv' ? 1.1 : 1, backgroundColor: hovered === 'cv' ? '#fde68a' : 'transparent' }}
+              transition={{ duration: 0.3 }}
+            />
+          </Link>
+
+          <Link href="#publication">
+            <motion.div
+              onHoverStart={() => setHovered('pub')}
+              onHoverEnd={() => setHovered(null)}
+              className="absolute left-[38%] top-[25%] w-[90px] h-[90px] cursor-pointer"
+              animate={{ scale: hovered === 'pub' ? 1.1 : 1, backgroundColor: hovered === 'pub' ? '#a5f3fc' : 'transparent' }}
+              transition={{ duration: 0.3 }}
+            />
+          </Link>
+
+          <Link href="#profile">
+            <motion.div
+              onHoverStart={() => setHovered('profile')}
+              onHoverEnd={() => setHovered(null)}
+              className="absolute left-[65%] top-[50%] w-[90px] h-[140px] cursor-pointer"
+              animate={{ scale: hovered === 'profile' ? 1.1 : 1, backgroundColor: hovered === 'profile' ? '#c4b5fd' : 'transparent' }}
+              transition={{ duration: 0.3 }}
+            />
+          </Link>
+        </div>
+      </section>
+
+      {/* Other Sections */}
+      <section
+        id="profile"
+        className="min-h-screen bg-white px-10 py-20 flex items-center"
+      >
+        {/* Left: Text*/}
+        <div className="w-2/3 pr-8">
+          <h1 className="text-3xl font-bold mb-4">Yang (Oceana) Di</h1>
+          <h3 className="text-xl mb-1">Cognitive Psychology</h3>
+          <h3 className="text-xl mb-4">Ph.D 1st year @ Buffalo University</h3>
+          <p className="text-base leading-relaxed">
+            My general interest lies in cognitive science and psycholinguistics. More specifically, I am interested in prosody, attention, working memory, and multilingualism.
+          </p>
+        </div>
+
+        {/* Right: Profile Image*/}
+        <div className="w-1/3 flex justify-center">
+          <div className="w-64 h-64 rounded-full border-4 border-black overflow-hidden">
+            <Image
+              src="/image/profile.jpg"
+              alt="Profile"
+              width={256}
+              height={256}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </div>
+      </section>
+
+
+      
+      <section id="cv" className="min-h-screen bg-white px-10 py-20">
+        <h2 className="text-3xl font-bold mb-4">Curriculum Vitae</h2>
+        <p>Insert your CV content here.</p>
+      </section>
+
+      <section id="publication" className="min-h-screen bg-gray-100 px-10 py-20">
+        <h2 className="text-3xl font-bold mb-4">Publications</h2>
+        <p>Insert your publication list here.</p>
+      </section>
+
+
+    </main>
+  )
 }
